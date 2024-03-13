@@ -214,7 +214,15 @@
 #define MAPSEC_ALTERING_CAVE                0xD2
 #define MAPSEC_NAVEL_ROCK                   0xD3
 #define MAPSEC_TRAINER_HILL                 0xD4
-#define MAPSEC_NONE                         0xD5
+
+//always be adding 1 to mapsec_none. When I've finished the entire map (which will take a while), then I can edit the region map using the
+//information I've found online (this takes a good bit of editing a binary file, which I have a tutorial on how to do). For now, we begin
+//by creating my own map stuff. I can also re-use routes and completely edit them, which I SHOULD DO. It's just towns that will be hard.
+//Alternatively, I could also make sure to make my map not use route names in the traditional sense? I don't know. 
+
+#define MAPSEC_STARRE_HARBOR                0xD5
+#define MAPSEC_STARRE_HARBOR_LIGHTHOUSE     0xD6
+#define MAPSEC_NONE                         0xD7
 
 #define METLOC_SPECIAL_EGG                  0xFD
 #define METLOC_IN_GAME_TRADE                0xFE

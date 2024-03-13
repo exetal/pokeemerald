@@ -1056,3 +1056,15 @@ Common_EventScript_LegendaryFlewAway::
 	.include "data/text/frontier_brain.inc"
 	.include "data/text/save.inc"
 	.include "data/text/birch_speech.inc"
+
+	.include "data/maps/LittlerootTown_ProfessorsLab_Two/scripts.inc"
+
+	.include "data/maps/LittlerootTown_Pokemart/scripts.inc"
+
+	.include "data/maps/NewMap1/scripts.inc"
+
+	.include "data/maps/LittlerootTown_Pokecenter/scripts.inc"
+
+	.include "data/maps/StarreHarbor/scripts.inc"
+
+	.include "data/maps/StarreHarborLighthouse/scripts.inc"

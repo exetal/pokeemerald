@@ -1,0 +1,108 @@
+mapscripts StarreHarborLighthouse_MapScripts{
+   MAP_SCRIPT_ON_FRAME_TABLE[
+    VAR_STARRE_HARBOR_STATE, 0: StarreHarborLighthouse_EventScript_SettlingIn
+   ]
+}
+
+// flag is FLAG_SETTLING_IN & var for game states is VAR_STARRE_HARBOR_STATE
+
+script StarreHarborLighthouse_EventScript_SettlingIn{
+    lockall
+    setvar(VAR_STARRE_HARBOR_STATE, 1)
+    msgbox(StartAdventure)
+    special(SpawnCameraObject)
+    applymovement(OBJ_EVENT_ID_CAMERA, CamToMother)
+    waitmovement(0)
+    applymovement(1, MotherApproach)
+    applymovement(OBJ_EVENT_ID_CAMERA, MotherApproach)
+    waitmovement(0)
+    msgbox(IKnow)
+    applymovement(1, MotherLeave)
+    applymovement(OBJ_EVENT_ID_CAMERA, MotherLeave)
+    waitmovement(0)
+    opendoor(11,8)
+    waitdooranim
+    applymovement(1, EnterDoor)
+    waitmovement(0)
+    removeobject(1)
+    closedoor(11,8)
+    waitdooranim
+    applymovement(OBJ_EVENT_ID_CAMERA, BackToPlayer)
+    waitmovement(0)
+    special(RemoveCameraObject)
+    setflag(FLAG_SETTLING_IN)
+    releaseall
+}
+
+text StartAdventure{
+    "...\p"
+    "...\p"
+    "Mom: There you are! I've been wondering\n"
+    "where you snuck off to."
+}
+
+text IKnow {
+    "I know it's hard now that your \n"
+    "grandfather has passed.\p"
+    "And now our family has moved here so we\n"
+    "can take over care of the lighthouse.\p"
+    "But I promise things will get better...\p"
+    "...\p"
+    "I tell you what, I just got your clock\n"
+    "installed. Why don't you come inside\l"
+    "and set it up?"
+}
+
+movement MotherApproach{
+    walk_down * 2
+    face_left
+    walk_left * 4
+    face_down
+    walk_down * 3
+    face_right
+    walk_right *5
+}
+
+movement MotherLeave{
+    face_left
+    walk_left * 5
+    face_up
+    walk_up * 3
+    face_right
+    walk_right * 4
+    face_up
+    walk_up * 2
+}
+
+movement EnterDoor{
+    walk_up
+}
+
+movement CamToMother{
+    walk_up * 3
+    walk_diag_northwest * 2
+}
+
+movement BackToPlayer{
+    walk_diag_southeast * 2
+    walk_down * 4
+}
+
+script StarreHarbor_Lighthouse_EventScript_DadMovingIn{
+    lockall
+    msgbox(DadMoveIn)
+    releaseall
+}
+
+text DadMoveIn {
+    "Hey, {PLAYER}! I'll be inside in\n"
+    "just a moment.\p"
+    "Now where did I put that..."
+}
+
+script StarreHarbor_Lighthouse_EventScript_MovingBoxes{
+    lockall
+    faceplayer
+    msgbox("This looks like the last of the things.")
+    releaseall
+}

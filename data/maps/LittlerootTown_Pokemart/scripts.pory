@@ -1,0 +1,31 @@
+mapscripts LittlerootTown_Pokemart_MapScripts {
+
+}
+
+script Littleroot_Mart_Employee{
+    lock
+    faceplayer
+    message("My potions are too strong for you \ntraveler?")
+    waitmessage
+    pokemart(Littleroot_Mart)
+    msgbox("Why respect knights, when my potions \ncan do anything you can?")
+    release
+    end
+}
+
+raw`
+
+.align 2
+Littleroot_Mart::
+    .2byte ITEM_POTION
+    .2byte ITEM_SUPER_POTION
+    .2byte ITEM_HYPER_POTION
+    .2byte ITEM_MAX_POTION
+    .2byte ITEM_MACH_BIKE
+    .2byte ITEM_MASTER_BALL
+    .2byte ITEM_RARE_CANDY
+    .2byte ITEM_NONE
+    release
+    end
+
+`

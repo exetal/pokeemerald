@@ -1,0 +1,449 @@
+mapscripts LittlerootTown_ProfessorsLab_Two_MapScripts {
+    MAP_SCRIPT_ON_TRANSITION: LittlerootTown_ProfessorsLab_Two_EventScript_BallDefault
+}
+
+script LittlerootTown_ProfessorsLab_Two_EventScript_BallDefault{
+    setvar(STARTER_REGION, 0)
+}
+
+script LittlerootTown_ProfessorsLab_Two_EventScript_ProfessorBirch{
+    if(!flag(FLAG_SETTLING_IN) || flag(POKEBALL_TWO) || flag(POKEBALL_THREE)){
+        lock
+        faceplayer
+        message("Would you like to see more?")
+        multichoice(25, 5, MULTI_STARTER_CHOICE, 1)
+        closemessage
+        if (var(VAR_RESULT) == 0){
+            call(StarterAdjust)
+            setVar(STARTER_REGION, 0)
+        }
+        elif (var(VAR_RESULT) == 1){
+            call(StarterAdjust)
+            setVar(STARTER_REGION, 1)
+        }
+        else{
+            call(StarterAdjust)
+            setVar(STARTER_REGION, 2)
+        }
+        msgbox("Choose wisely...")
+        waitmessage
+        release
+    }
+    else{
+        msgbox("Take good care of your Pokemon.", MSGBOX_NPC)
+    }
+    setflag(FLAG_SYS_POKEMON_GET)
+    end
+}
+
+script StarterAdjust{
+    lockall
+    applymovement(OBJ_EVENT_ID_PLAYER, PlayerMoveAway)
+    applymovement(4, BirchStarterRoutine)
+    waitmovement(0)
+    delay(20)
+    msgbox("Please choose a Pokemon.")
+    return
+}
+
+movement PlayerMoveAway{
+    face_up 
+    walk_down
+    step_end
+}
+
+movement BirchStarterRoutine{
+    face_left
+    walk_left
+    face_up 
+    delay_16
+    face_left
+    walk_left
+    face_up 
+    delay_16
+    face_left
+    walk_left
+    face_up 
+    delay_16
+    face_right
+    walk_right *3
+    face_down
+    step_end
+}
+
+
+script LittlerootTown_ProfessorsLab_Two_EventScript_PokeballOne{
+    lockall
+    if(!(flag(FLAG_SETTLING_IN) || flag(POKEBALL_TWO) || flag(POKEBALL_THREE))){
+        if(var(STARTER_REGION) == 0){
+            call(LittlerootTown_ProfessorsLab_Two_EventScript_Charmander)
+        }
+        elif(var(STARTER_REGION) == 1){
+            call(LittlerootTown_ProfessorsLab_Two_EventScript_Cyndaquil)
+        }
+        elif(var(STARTER_REGION) == 2){
+            call(LittlerootTown_ProfessorsLab_Two_EventScript_Torchic)
+        }
+    }
+    else{
+        msgbox("Do not take another Pokemon")
+    }
+    waitmessage
+    releaseall
+    end
+}
+
+script LittlerootTown_ProfessorsLab_Two_EventScript_PokeballTwo{
+    lockall
+    if(!(flag(FLAG_SETTLING_IN) || flag(POKEBALL_TWO) || flag(POKEBALL_THREE))){
+        if(var(STARTER_REGION) == 0){
+            call(LittlerootTown_ProfessorsLab_Two_EventScript_Squirtle)
+        }
+        elif(var(STARTER_REGION) == 1){
+            call(LittlerootTown_ProfessorsLab_Two_EventScript_Totodile)
+        }
+        elif(var(STARTER_REGION) == 2){
+            call(LittlerootTown_ProfessorsLab_Two_EventScript_Mudkip)
+        }
+    }
+    else{
+        msgbox("Do not take another Pokemon")
+    }
+    waitmessage
+    releaseall
+    end
+}
+
+script LittlerootTown_ProfessorsLab_Two_EventScript_PokeballThree{
+    lockall
+    if(!(flag(FLAG_SETTLING_IN) || flag(POKEBALL_TWO) || flag(POKEBALL_THREE))){
+        if(var(STARTER_REGION) == 0){
+            call(LittlerootTown_ProfessorsLab_Two_EventScript_Bulbasaur)
+        }
+        elif(var(STARTER_REGION) == 1){
+            call(LittlerootTown_ProfessorsLab_Two_EventScript_Chikorita)
+        }
+        elif(var(STARTER_REGION) == 2){
+            call(LittlerootTown_ProfessorsLab_Two_EventScript_Treecko)
+        }
+    }
+    else{
+        msgbox("Do not take another Pokemon")
+    }
+    waitmessage
+    releaseall
+    end
+}
+
+script LittlerootTown_ProfessorsLab_Two_EventScript_Charmander{
+    lockall
+    showmonpic(SPECIES_CHARMANDER, 10, 3)
+    msgbox("Do you want to choose Charmander?", MSGBOX_YESNO)
+    if(var(VAR_RESULT) == YES){
+        givemon(SPECIES_CHARMANDER, 5, ITEM_MASTER_BALL)
+       if(var(VAR_RESULT) == MON_GIVEN_TO_PARTY){
+            playfanfare(MUS_OBTAIN_ITEM)
+            msgbox("Recieved Charmander")
+            removeobject(1)
+            setflag(FLAG_SETTLING_IN)
+            call(NicknamePartyMon)
+       } elif(var(VAR_RESULT) == MON_GIVEN_TO_PC){
+            playfanfare(MUS_OBTAIN_ITEM)
+            msgbox("Recieved Charmander")
+            removeobject(1)
+            setflag(FLAG_SETTLING_IN)
+            call(NicknamePartyMon)
+       } else {
+            hidemonpic
+            msgbox("You do not have room for another pokemon.")
+       }  
+    } else {
+        hidemonpic
+        msgbox(ProfessorsLab_NotChosen)
+    }
+    waitmessage
+    releaseall
+    end
+}
+
+script LittlerootTown_ProfessorsLab_Two_EventScript_Cyndaquil{
+    lockall
+    showmonpic(SPECIES_CYNDAQUIL, 10, 3)
+    msgbox("Do you want to choose Cyndaquil?", MSGBOX_YESNO)
+    if(var(VAR_RESULT) == YES){
+        givemon(SPECIES_CYNDAQUIL, 5, ITEM_MASTER_BALL)
+       if(var(VAR_RESULT) == MON_GIVEN_TO_PARTY){
+            playfanfare(MUS_OBTAIN_ITEM)
+            msgbox("Recieved Cyndaquil")
+            removeobject(1)
+            setflag(FLAG_SETTLING_IN)
+            call(NicknamePartyMon)
+       } elif(var(VAR_RESULT) == MON_GIVEN_TO_PC){
+            playfanfare(MUS_OBTAIN_ITEM)
+            msgbox("Recieved Cyndaquil")
+            removeobject(1)
+            setflag(FLAG_SETTLING_IN)
+            call(NicknamePartyMon)
+       } else {
+            hidemonpic
+            msgbox("You do not have room for another pokemon.")
+       }  
+    } else {
+        hidemonpic
+        msgbox(ProfessorsLab_NotChosen)
+    }
+    waitmessage
+    releaseall
+    end
+}
+
+script LittlerootTown_ProfessorsLab_Two_EventScript_Torchic{
+    lockall
+    showmonpic(SPECIES_TORCHIC, 10, 3)
+    msgbox("Do you want to choose Torchic?", MSGBOX_YESNO)
+    if(var(VAR_RESULT) == YES){
+        givemon(SPECIES_TORCHIC, 5, ITEM_MASTER_BALL)
+       if(var(VAR_RESULT) == MON_GIVEN_TO_PARTY){
+            playfanfare(MUS_OBTAIN_ITEM)
+            msgbox("Recieved Torchic")
+            removeobject(1)
+            setflag(FLAG_SETTLING_IN)
+            call(NicknamePartyMon)
+       } elif(var(VAR_RESULT) == MON_GIVEN_TO_PC){
+            playfanfare(MUS_OBTAIN_ITEM)
+            msgbox("Recieved Torchic")
+            removeobject(1)
+            setflag(FLAG_SETTLING_IN)
+            call(NicknamePartyMon)
+       } else {
+            hidemonpic
+            msgbox("You do not have room for another pokemon.")
+       }  
+    } else {
+        hidemonpic
+        msgbox(ProfessorsLab_NotChosen)
+    }
+    waitmessage
+    releaseall
+    end
+}
+
+script LittlerootTown_ProfessorsLab_Two_EventScript_Squirtle{
+    lockall
+    showmonpic(SPECIES_SQUIRTLE, 10, 3)
+    msgbox("Do you want to choose Squirtle?", MSGBOX_YESNO)
+    if(var(VAR_RESULT) == YES){
+        givemon(SPECIES_SQUIRTLE, 5, ITEM_MASTER_BALL)
+       if(var(VAR_RESULT) == MON_GIVEN_TO_PARTY){
+            playfanfare(MUS_OBTAIN_ITEM)
+            msgbox("Recieved Squirtle")
+            removeobject(2)
+            setflag(POKEBALL_TWO)
+            call(NicknamePartyMon)
+       } elif(var(VAR_RESULT) == MON_GIVEN_TO_PC){
+            playfanfare(MUS_OBTAIN_ITEM)
+            msgbox("Recieved Squirtle")
+            removeobject(2)
+            setflag(POKEBALL_TWO)
+            call(NicknamePartyMon)
+       } else {
+            hidemonpic
+            msgbox("You do not have room for another pokemon.")
+       }  
+    } else {
+        hidemonpic
+        msgbox(ProfessorsLab_NotChosen)
+    }
+    waitmessage
+    releaseall
+    end
+}
+
+script LittlerootTown_ProfessorsLab_Two_EventScript_Totodile{
+    lockall
+    showmonpic(SPECIES_TOTODILE, 10, 3)
+    msgbox("Do you want to choose Totodile?", MSGBOX_YESNO)
+    if(var(VAR_RESULT) == YES){
+        givemon(SPECIES_TOTODILE, 5, ITEM_MASTER_BALL)
+       if(var(VAR_RESULT) == MON_GIVEN_TO_PARTY){
+            playfanfare(MUS_OBTAIN_ITEM)
+            msgbox("Recieved Totodile")
+            removeobject(2)
+            setflag(POKEBALL_TWO)
+            call(NicknamePartyMon)
+       } elif(var(VAR_RESULT) == MON_GIVEN_TO_PC){
+            playfanfare(MUS_OBTAIN_ITEM)
+            msgbox("Recieved Totodile")
+            removeobject(2)
+            setflag(POKEBALL_TWO)
+            call(NicknamePartyMon)
+       } else {
+            hidemonpic
+            msgbox("You do not have room for another pokemon.")
+       }  
+    } else {
+        hidemonpic
+        msgbox(ProfessorsLab_NotChosen)
+    }
+    waitmessage
+    releaseall
+    end
+}
+
+script LittlerootTown_ProfessorsLab_Two_EventScript_Mudkip{
+    lockall
+    showmonpic(SPECIES_MUDKIP, 10, 3)
+    msgbox("Do you want to choose Mudkip?", MSGBOX_YESNO)
+    if(var(VAR_RESULT) == YES){
+        givemon(SPECIES_MUDKIP, 5, ITEM_MASTER_BALL)
+       if(var(VAR_RESULT) == MON_GIVEN_TO_PARTY){
+            playfanfare(MUS_OBTAIN_ITEM)
+            msgbox("Recieved Mudkip")
+            removeobject(2)
+            setflag(POKEBALL_TWO)
+            call(NicknamePartyMon)
+       } elif(var(VAR_RESULT) == MON_GIVEN_TO_PC){
+            playfanfare(MUS_OBTAIN_ITEM)
+            msgbox("Recieved MUDKIP")
+            removeobject(2)
+            setflag(POKEBALL_TWO)
+            call(NicknamePartyMon)
+       } else {
+            hidemonpic
+            msgbox("You do not have room for another pokemon.")
+       }  
+    } else {
+        hidemonpic
+        msgbox(ProfessorsLab_NotChosen)
+    }
+    waitmessage
+    releaseall
+    end
+}
+
+script LittlerootTown_ProfessorsLab_Two_EventScript_Bulbasaur{
+    lockall
+    showmonpic(SPECIES_BULBASAUR, 10, 3)
+    msgbox("Do you want to choose Bulbasaur?", MSGBOX_YESNO)
+    if(var(VAR_RESULT) == YES){
+        givemon(SPECIES_BULBASAUR, 5, ITEM_MASTER_BALL)
+       if(var(VAR_RESULT) == MON_GIVEN_TO_PARTY){
+            playfanfare(MUS_OBTAIN_ITEM)
+            msgbox("Recieved Bulbasaur")
+            removeobject(3)
+            setflag(POKEBALL_THREE)
+            call(NicknamePartyMon)
+       } elif(var(VAR_RESULT) == MON_GIVEN_TO_PC){
+        playfanfare(MUS_OBTAIN_ITEM)
+        msgbox("Recieved Bulbasaur")
+        removeobject(3)
+        setflag(POKEBALL_THREE)
+        call(NicknamePartyMon)
+       } else {
+        hidemonpic
+        msgbox("You do not have room for another pokemon.")
+       }  
+    } else {
+        hidemonpic
+        msgbox(ProfessorsLab_NotChosen)
+    }
+    waitmessage
+    releaseall
+    end
+}
+
+script LittlerootTown_ProfessorsLab_Two_EventScript_Chikorita{
+    lockall
+    showmonpic(SPECIES_CHIKORITA, 10, 3)
+    msgbox("Do you want to choose Chikorita?", MSGBOX_YESNO)
+    if(var(VAR_RESULT) == YES){
+        givemon(SPECIES_CHIKORITA, 5, ITEM_MASTER_BALL)
+       if(var(VAR_RESULT) == MON_GIVEN_TO_PARTY){
+            playfanfare(MUS_OBTAIN_ITEM)
+            msgbox("Recieved Chikorita")
+            removeobject(3)
+            setflag(POKEBALL_THREE)
+            call(NicknamePartyMon)
+       } elif(var(VAR_RESULT) == MON_GIVEN_TO_PC){
+            playfanfare(MUS_OBTAIN_ITEM)
+            msgbox("Recieved Chikorita")
+            removeobject(3)
+            setflag(POKEBALL_THREE)
+            call(NicknamePartyMon)
+       } else {
+            hidemonpic
+            msgbox("You do not have room for another pokemon.")
+       }  
+    } else {
+        hidemonpic
+        msgbox(ProfessorsLab_NotChosen)
+    }
+    waitmessage
+    releaseall
+    end
+}
+
+script LittlerootTown_ProfessorsLab_Two_EventScript_Treecko{
+    lockall
+    showmonpic(SPECIES_TREECKO, 10, 3)
+    msgbox("Do you want to choose Treecko?", MSGBOX_YESNO)
+    if(var(VAR_RESULT) == YES){
+        givemon(SPECIES_TREECKO, 5, ITEM_MASTER_BALL)
+       if(var(VAR_RESULT) == MON_GIVEN_TO_PARTY){
+            playfanfare(MUS_OBTAIN_ITEM)
+            msgbox("Recieved Treecko")
+            removeobject(3)
+            setflag(POKEBALL_THREE)
+            call(NicknamePartyMon)
+       } elif(var(VAR_RESULT) == MON_GIVEN_TO_PC){
+            playfanfare(MUS_OBTAIN_ITEM)
+            msgbox("Recieved Treecko")
+            removeobject(3)
+            setflag(POKEBALL_THREE)
+            call(NicknamePartyMon)
+       } else {
+            hidemonpic
+            msgbox("You do not have room for another pokemon.")
+       }  
+    } else {
+        hidemonpic
+        msgbox(ProfessorsLab_NotChosen)
+    }
+    waitmessage
+    releaseall
+    end
+}
+
+script NicknamePartyMon {
+    msgbox("Give it a nickname?", MSGBOX_YESNO)
+    hidemonpic
+    if(var(VAR_RESULT) == YES){
+        call(Common_EventScript_GetGiftMonPartySlot)
+        call(Common_EventScript_NameReceivedPartyMon)
+    }
+}
+
+script NicknameBoxMon{
+    msgbox("Give it a nickname?", MSGBOX_YESNO)
+    hidemonpic
+    if(var(VAR_RESULT) == YES){
+        call(Common_EventScript_NameReceivedBoxMon)
+    }
+    msgbox("Transferred to PC")
+}
+
+text ProfessorsLab_NotChosen{
+    "You did not choose the Pokemon."
+}
+
+script DontTouchThat{
+    lockall
+    msgbox("Don't touch that!")
+    applymovement(OBJ_EVENT_ID_PLAYER, MoveAwayFromThere)
+    waitmovement(0)
+    releaseall
+}
+
+movement MoveAwayFromThere{
+    walk_left * 2
+}

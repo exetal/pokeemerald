@@ -1710,6 +1710,22 @@
       "y": 4,
       "width": 1,
       "height": 1
+    },
+    {
+      "map_section": "MAPSEC_STARRE_HARBOR",
+      "name": "STARRE HARBOR",
+      "x": 27,
+      "y": 15,
+      "width": 1,
+      "height": 1
+    },
+    {
+      "map_section": "MAPSEC_STARRE_HARBOR_LIGHTHOUSE",
+      "name": "S.H. LIGHTHOUSE",
+      "x": 27,
+      "y": 16,
+      "width": 1,
+      "height": 1
     }
   ]
 }
